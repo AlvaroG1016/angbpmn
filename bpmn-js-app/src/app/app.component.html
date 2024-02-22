@@ -1,0 +1,71 @@
+<!-- 
+ <fluent-tabs activeid="entrees">
+  <fluent-tab id="apps" (click)="archivoTabActivo = !archivoTabActivo">Archivo</fluent-tab>
+
+  
+  <fluent-tab-panel id="appsPanel">
+      <ol>
+          <fluent-listbox *ngIf="archivoTabActivo" aria-labelledby="lb_label">
+            <fluent-option value="fn">Abrir BPM</fluent-option>
+            <fluent-option >
+              <a (click)="activateExportArtifacts()"   #downloadLinkRef id="js-download-diagram" href >Exportar BPMN></a>  
+            </fluent-option>
+            <fluent-option > 
+
+              <a (click)="activateExportArtifacts()"   #downloadSvgLinkRef id="js-download-svg"  href >Exportar SVG</a>
+            </fluent-option>
+          </fluent-listbox>
+      </ol>
+  </fluent-tab-panel>
+  
+</fluent-tabs>  -->
+
+<fluent-tabs activeid="entrees">
+  <fluent-tab id="apps" (click)="toggleTab('apps')">Archivo</fluent-tab>
+  <fluent-tab id="export" (click)="toggleTab('export')">Exportar</fluent-tab>
+
+  <fluent-tab-panel id="apps">
+    <ol>
+      <fluent-menu *ngIf="archivoTabActivo === 'apps'" >
+        <fluent-menu-item>importar</fluent-menu-item>
+        <fluent-divider></fluent-divider>
+      </fluent-menu>
+    </ol>
+  </fluent-tab-panel>
+
+  <fluent-tab-panel id="export">
+    <ol>
+      <fluent-menu *ngIf="archivoTabActivo === 'export'" aria-labelledby="lb_label">
+        <fluent-option > 
+
+          <a (click)="activateExportArtifacts()"   #downloadSvgLinkRef id="js-download-svg"  href >Exportar SVG</a>
+        </fluent-option>
+        <br>
+
+        <fluent-option >
+          <a (click)="activateExportArtifacts()"   #downloadLinkRef id="js-download-diagram" href >Exportar BPMN></a>  
+        </fluent-option>
+      </fluent-menu>
+    </ol>
+  </fluent-tab-panel>
+</fluent-tabs>
+
+
+
+
+<div class="diagram-parent">
+  <div id="js-properties-panel"></div>
+
+  <app-diagram [url]="diagramUrl" (importDone)="handleImported($event)">
+    
+  </app-diagram>
+
+  <div class="import-error" *ngIf="importError">
+    <strong>Failed to render diagram: </strong>
+    {{ importError.message }}
+  </div>
+
+
+
+</div>
+
