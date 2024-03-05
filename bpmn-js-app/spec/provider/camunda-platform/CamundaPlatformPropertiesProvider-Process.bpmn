@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1dbphwf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0-alpha.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Process_1" isExecutable="true" camunda:taskPriority="DefaultPriority">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="formField_1" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0l7qg72</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_1">
+      <bpmn:incoming>Flow_0l7qg72</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fpiafa</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0l7qg72" sourceRef="StartEvent_1" targetRef="Task_1" />
+    <bpmn:endEvent id="EndEvent_1">
+      <bpmn:incoming>Flow_1fpiafa</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1fpiafa" sourceRef="Task_1" targetRef="EndEvent_1" />
+    <bpmn:serviceTask id="FieldInjectionServiceTask_1" name="Show Field Injection" />
+    <bpmn:businessRuleTask id="FieldInjectionBusinessRuleTask_1" name="Show Field Injection" />
+    <bpmn:sendTask id="FieldInjectionSendMessageTask_1" name="Show Field Injection" />
+    <bpmn:intermediateThrowEvent id="FieldInjectionIntermediateMessageThrowEvent_1" name="Show Field Injection">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0v3qg1h" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateCatchEvent id="FieldInjectionIntermediateMessageCatchEvent_1" name="Don&#39;t show Field Injection">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1m24q6c" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:callActivity id="FieldInjectionCallActivity_1" name="Don&#39;t show Field Injection" />
+    <bpmn:serviceTask id="JobExecutionServiceTask_1" name="Show Job Execution" camunda:asyncBefore="true" />
+    <bpmn:businessRuleTask id="ShowJobExecutionBusinessRuleTask_1" name="Show Job Execution" camunda:asyncAfter="true" camunda:exclusive="false" />
+    <bpmn:startEvent id="JobExecutionTimerStartEvent_1" name="Show Job Execution">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1y3cgjx" />
+    </bpmn:startEvent>
+    <bpmn:intermediateCatchEvent id="JobExecutionTimerCatchEvent_1" name="Show Job Execution" camunda:asyncBefore="true" camunda:asyncAfter="true">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1mnbc07" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:scriptTask id="JobExecutionScriptTask_1" name="Show Job Execution" camunda:asyncBefore="true" camunda:asyncAfter="true" />
+    <bpmn:boundaryEvent id="JobExecutionTimerBoundaryEvent_1" name="Show Job Execution" cancelActivity="false" attachedToRef="JobExecutionScriptTask_1">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1aiq270" />
+    </bpmn:boundaryEvent>
+    <bpmn:serviceTask id="JobExecutionServiceTask_2" name="Don&#39;t show Job Execution" />
+    <bpmn:userTask id="JobExecutionUserTask_1" name="Don&#39;t show Job Execution" />
+    <bpmn:intermediateThrowEvent id="JobExecution_Event1" name="Don&#39;t show Job Execution" />
+    <bpmn:serviceTask id="ExternalTaskServiceTask_1" name="Don&#39;t show external task priority" camunda:expression="${ foobar }" />
+    <bpmn:serviceTask id="ExternalTaskServiceTask_2" name="Show external task priority" camunda:type="external" camunda:topic="" camunda:taskPriority="1337" />
+    <bpmn:endEvent id="ExternalTaskMessageEndEvent_1" name="Show external task priority">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1h3vk4o" camunda:type="external" camunda:topic="" />
+    </bpmn:endEvent>
+    <bpmn:intermediateThrowEvent id="ExternalTaskMessageIntermediateThrowEvent_1" name="Show external task priority">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0qd9vhm" camunda:type="external" camunda:topic="" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:businessRuleTask id="ExternalTaskBusinessRuleTask_1" name="Show external task priority" camunda:type="external" camunda:topic="" />
+    <bpmn:sendTask id="ExternalTaskSendTask_1" name="Show external task priority" camunda:type="external" camunda:topic="" />
+    <bpmn:sendTask id="ExternalTaskSendTask_2" name="Don&#39;t show external task priority" camunda:class="" />
+    <bpmn:userTask id="UserTask_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+        </camunda:formData>
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+    <bpmn:scriptTask id="ScriptTask_1" />
+    <bpmn:task id="MultiInstanceTask_1" name="MultiInstanceTask_1">
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="b" camunda:elementVariable="c">
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">a</bpmn:loopCardinality>
+        <bpmn:completionCondition xsi:type="bpmn:tFormalExpression">d</bpmn:completionCondition>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:task>
+    <bpmn:callActivity id="CallActivity_1" />
+    <bpmn:serviceTask id="ServiceTask_external" name="external service task" camunda:type="external" camunda:topic="topic" />
+    <bpmn:serviceTask id="ServiceTask_connector" name="connector task">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:connectorId>connectorId</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ExternalServiceTask" name="ExternalServiceTask" camunda:type="external" camunda:topic="" />
+    <bpmn:startEvent id="Event_0zbzssf">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_065midm">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1" name="Flow_1" sourceRef="Event_0zbzssf" targetRef="Activity_065midm" />
+    <bpmn:endEvent id="Event_0pcrm6w">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_2" name="Flow_2" sourceRef="Activity_065midm" targetRef="Event_0pcrm6w" />
+    <bpmn:exclusiveGateway id="Gateway_0eu4fas">
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_0lc5lrq">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_3" name="Flow_3" sourceRef="Gateway_0eu4fas" targetRef="Event_0lc5lrq" />
+    <bpmn:endEvent id="Event_1hk05ah">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_4" name="Flow_4" sourceRef="Gateway_0z1h429" targetRef="Event_1hk05ah" />
+    <bpmn:parallelGateway id="Gateway_0z1h429">
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:endEvent id="Event_0xzw8uc">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_5" name="Flow_5" sourceRef="Gateway_04yxhcl" targetRef="Event_0xzw8uc" />
+    <bpmn:inclusiveGateway id="Gateway_04yxhcl">
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:endEvent id="Event_06np2h1">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_6" name="Flow_6" sourceRef="Gateway_1dk4a9p" targetRef="Event_06np2h1" />
+    <bpmn:complexGateway id="Gateway_1dk4a9p">
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:complexGateway>
+    <bpmn:eventBasedGateway id="Gateway_019mgh7">
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:intermediateCatchEvent id="Event_15ulsi9">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1unqo5i" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_7" name="Flow_7" sourceRef="Gateway_019mgh7" targetRef="Event_15ulsi9" />
+    <bpmn:endEvent id="MessageEndEvent_1" name="MessageEndEvent_1">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1imxphw" />
+    </bpmn:endEvent>
+    <bpmn:intermediateThrowEvent id="MessageIntermediateThrowEvent_1">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1r2v4x8" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:userTask id="UserTask_2" />
+    <bpmn:group id="Group_181txdl" categoryValueRef="CategoryValue_0gchis2" />
+    <bpmn:group id="Group_1k1ibga" categoryValueRef="CategoryValue_1nalfj2" />
+    <bpmn:group id="Group_1" categoryValueRef="CategoryValue_0vucc3u" />
+    <bpmn:group id="Group_0qji6iz" categoryValueRef="CategoryValue_15hkyp9" />
+  </bpmn:process>
+  <bpmn:category id="Category_0s6pp9d">
+    <bpmn:categoryValue id="CategoryValue_0gchis2" value="Field Injection" />
+  </bpmn:category>
+  <bpmn:category id="Category_1h8e7u4">
+    <bpmn:categoryValue id="CategoryValue_1nalfj2" value="Job Execution" />
+  </bpmn:category>
+  <bpmn:category id="Category_06qoi1f">
+    <bpmn:categoryValue id="CategoryValue_0vucc3u" value="External Task" />
+  </bpmn:category>
+  <bpmn:category id="Category_1ey5310">
+    <bpmn:categoryValue id="CategoryValue_15hkyp9" value="External Task Priority" />
+  </bpmn:category>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNEdge id="Flow_0obqyr9_di" bpmnElement="Flow_7">
+        <di:waypoint x="305" y="1170" />
+        <di:waypoint x="372" y="1170" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="321" y="1152" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d22dht_di" bpmnElement="Flow_6">
+        <di:waypoint x="305" y="1090" />
+        <di:waypoint x="362" y="1090" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="316" y="1072" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nu2tje_di" bpmnElement="Flow_5">
+        <di:waypoint x="305" y="1010" />
+        <di:waypoint x="362" y="1010" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="316" y="992" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_137ybw4_di" bpmnElement="Flow_4">
+        <di:waypoint x="305" y="930" />
+        <di:waypoint x="362" y="930" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="316" y="912" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bloapp_di" bpmnElement="Flow_3">
+        <di:waypoint x="305" y="850" />
+        <di:waypoint x="362" y="850" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="316" y="832" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g8pr8y_di" bpmnElement="Flow_2">
+        <di:waypoint x="330" y="720" />
+        <di:waypoint x="382" y="720" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="338" y="702" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0exhyjg_di" bpmnElement="Flow_1">
+        <di:waypoint x="178" y="720" />
+        <di:waypoint x="230" y="720" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="186" y="702" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fpiafa_di" bpmnElement="Flow_1fpiafa">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="432" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l7qg72_di" bpmnElement="Flow_0l7qg72">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_017k152_di" bpmnElement="Task_1">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0b1fek8_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="432" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a01dei_di" bpmnElement="FieldInjectionServiceTask_1">
+        <dc:Bounds x="210" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06qzrwn_di" bpmnElement="FieldInjectionBusinessRuleTask_1">
+        <dc:Bounds x="340" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1y7jiau_di" bpmnElement="FieldInjectionSendMessageTask_1">
+        <dc:Bounds x="470" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_13sbst4_di" bpmnElement="FieldInjectionIntermediateMessageThrowEvent_1">
+        <dc:Bounds x="602" y="382" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="593" y="425" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1pfw86h_di" bpmnElement="FieldInjectionIntermediateMessageCatchEvent_1">
+        <dc:Bounds x="372" y="542" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="350" y="585" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08t1jid_di" bpmnElement="FieldInjectionCallActivity_1">
+        <dc:Bounds x="210" y="520" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jl1gnf_di" bpmnElement="JobExecutionServiceTask_1">
+        <dc:Bounds x="720" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1uj27bg_di" bpmnElement="ShowJobExecutionBusinessRuleTask_1">
+        <dc:Bounds x="850" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1eywaor_di" bpmnElement="JobExecutionTimerStartEvent_1">
+        <dc:Bounds x="972" y="382" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="957" y="425" width="66" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1y775k2_di" bpmnElement="JobExecutionTimerCatchEvent_1">
+        <dc:Bounds x="1052" y="382" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1038" y="425" width="66" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1umerin_di" bpmnElement="JobExecutionScriptTask_1">
+        <dc:Bounds x="1160" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1at4r1b_di" bpmnElement="JobExecutionServiceTask_2">
+        <dc:Bounds x="720" y="520" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09x2791_di" bpmnElement="JobExecutionUserTask_1">
+        <dc:Bounds x="850" y="520" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0z1l7uw_di" bpmnElement="JobExecution_Event1">
+        <dc:Bounds x="982" y="542" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="963" y="585" width="75" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wxu5c8_di" bpmnElement="ExternalTaskServiceTask_1">
+        <dc:Bounds x="1400" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rtjnsy_di" bpmnElement="ExternalTaskServiceTask_2">
+        <dc:Bounds x="1540" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0wblwpk_di" bpmnElement="ExternalTaskMessageEndEvent_1">
+        <dc:Bounds x="1432" y="482" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1415" y="525" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14690ga_di" bpmnElement="ExternalTaskMessageIntermediateThrowEvent_1">
+        <dc:Bounds x="1572" y="492" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1556" y="535" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_071zfig_di" bpmnElement="ExternalTaskBusinessRuleTask_1">
+        <dc:Bounds x="1670" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kzwf0m_di" bpmnElement="ExternalTaskSendTask_1">
+        <dc:Bounds x="1670" y="480" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0m9ncu1_di" bpmnElement="ExternalTaskSendTask_2">
+        <dc:Bounds x="1810" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16pxchs_di" bpmnElement="UserTask_1">
+        <dc:Bounds x="270" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1oyu2ja_di" bpmnElement="ScriptTask_1">
+        <dc:Bounds x="560" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cc7m4t_di" bpmnElement="MultiInstanceTask_1">
+        <dc:Bounds x="560" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0uj92vh_di" bpmnElement="CallActivity_1">
+        <dc:Bounds x="570" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0go5ee0_di" bpmnElement="ServiceTask_external">
+        <dc:Bounds x="560" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17w48u0_di" bpmnElement="ServiceTask_connector">
+        <dc:Bounds x="700" y="200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pu98ap_di" bpmnElement="ExternalServiceTask">
+        <dc:Bounds x="720" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0zbzssf_di" bpmnElement="Event_0zbzssf">
+        <dc:Bounds x="142" y="702" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_065midm_di" bpmnElement="Activity_065midm">
+        <dc:Bounds x="230" y="680" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0pcrm6w_di" bpmnElement="Event_0pcrm6w">
+        <dc:Bounds x="382" y="702" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0eu4fas_di" bpmnElement="Gateway_0eu4fas" isMarkerVisible="true">
+        <dc:Bounds x="255" y="825" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lc5lrq_di" bpmnElement="Event_0lc5lrq">
+        <dc:Bounds x="362" y="832" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hk05ah_di" bpmnElement="Event_1hk05ah">
+        <dc:Bounds x="362" y="912" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1t7jjkw_di" bpmnElement="Gateway_0z1h429">
+        <dc:Bounds x="255" y="905" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0xzw8uc_di" bpmnElement="Event_0xzw8uc">
+        <dc:Bounds x="362" y="992" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1wniocb_di" bpmnElement="Gateway_04yxhcl">
+        <dc:Bounds x="255" y="985" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_06np2h1_di" bpmnElement="Event_06np2h1">
+        <dc:Bounds x="362" y="1072" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0g3hjve_di" bpmnElement="Gateway_1dk4a9p">
+        <dc:Bounds x="255" y="1065" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0s3n8iq_di" bpmnElement="Gateway_019mgh7">
+        <dc:Bounds x="255" y="1145" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15ulsi9_di" bpmnElement="Event_15ulsi9">
+        <dc:Bounds x="372" y="1152" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1u46ljr_di" bpmnElement="MessageEndEvent_1">
+        <dc:Bounds x="1052" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1025" y="245" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ix3y6q_di" bpmnElement="MessageIntermediateThrowEvent_1">
+        <dc:Bounds x="1052" y="132" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sqe5z4_di" bpmnElement="UserTask_2">
+        <dc:Bounds x="130" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_1k1ibga_di" bpmnElement="Group_1k1ibga">
+        <dc:Bounds x="700" y="330" width="650" height="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="983" y="337" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_181txdl_di" bpmnElement="Group_1">
+        <dc:Bounds x="150" y="330" width="510" height="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="371" y="337" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_0qji6iz_di" bpmnElement="Group_0qji6iz">
+        <dc:Bounds x="1390" y="330" width="550" height="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1632" y="337" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0o1gki8_di" bpmnElement="JobExecutionTimerBoundaryEvent_1">
+        <dc:Bounds x="1212" y="422" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1198" y="465" width="66" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

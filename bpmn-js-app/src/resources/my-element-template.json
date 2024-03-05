@@ -1,0 +1,53 @@
+[
+    {
+      "name": "Mail Task",
+      "id": "com.camunda.example.MailTask",
+      "appliesTo": ["bpmn:ServiceTask"],
+      "properties": [
+        {
+          "label": "Tipo de Implementación",
+          "type": "String",
+          "value": "com.mycompany.MailTaskImpl",
+          "editable": false,
+          "binding": {
+            "type": "property",
+            "name": "camunda:javaDelegate"
+          }
+        },
+        {
+          "label": "Template",
+          "description": "Puedes usar plantillas freemarker ${...} aquí",
+          "value": "¡Hola ${firstName}!",
+          "type": "Text",
+          "binding": {
+            "type": "camunda:inputParameter",
+            "name": "messageBody",
+            "scriptFormat": "freemarker"
+          },
+          "constraints": {
+            "notEmpty": true
+          }
+        },
+        {
+          "label": "Estado del Resultado",
+          "description": "Variable de proceso para asignar el resultado del envío",
+          "type": "String",
+          "value": "mailSendResult",
+          "binding": {
+            "type": "camunda:outputParameter",
+            "source": "${resultStatus}"
+          }
+        },
+        {
+          "label": "¿Enviar de forma asíncrona?",
+          "type": "Boolean",
+          "value": true,
+          "binding": {
+            "type": "property",
+            "name": "camunda:asyncBefore"
+          }
+        }
+      ]
+    }
+  ]
+  

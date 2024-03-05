@@ -21,17 +21,17 @@
 </fluent-tabs>  -->
 
 <fluent-tabs activeid="entrees">
-  <fluent-tab id="apps" (click)="toggleTab('apps')">Archivo</fluent-tab>
-  <fluent-tab id="export" (click)="toggleTab('export')">Exportar</fluent-tab>
+<!--   <fluent-tab id="apps" (click)="toggleTab('apps')">Archivo</fluent-tab>
+ -->  <fluent-tab id="export" (click)="toggleTab('export')">Exportar</fluent-tab>
 
-  <fluent-tab-panel id="apps">
+<!--   <fluent-tab-panel id="apps">
     <ol>
       <fluent-menu *ngIf="archivoTabActivo === 'apps'" >
         <fluent-menu-item>importar</fluent-menu-item>
         <fluent-divider></fluent-divider>
       </fluent-menu>
     </ol>
-  </fluent-tab-panel>
+  </fluent-tab-panel> -->
 
   <fluent-tab-panel id="export">
     <ol>
@@ -53,19 +53,24 @@
 
 
 
-<div class="diagram-parent">
-  <div id="js-properties-panel"></div>
+<div class="content" id="js-drop-zone">
+    <div class="diagram-parent">
 
-  <app-diagram [url]="diagramUrl" (importDone)="handleImported($event)">
+ 
+
+    <div class="canvas" id="js-canvas"></div>
+    <div id="js-properties-panel"></div>
+    <app-diagram [url]="diagramUrl" (importDone)="handleImported($event)">
+      
+    </app-diagram>
     
-  </app-diagram>
-
-  <div class="import-error" *ngIf="importError">
-    <strong>Failed to render diagram: </strong>
-    {{ importError.message }}
-  </div>
-
-
-
+    <div class="import-error" *ngIf="importError">
+      <strong>Failed to render diagram: </strong>
+      {{ importError.message }}
+    </div>
+    
+    
+  </div>  
+  
 </div>
 

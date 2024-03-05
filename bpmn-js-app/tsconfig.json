@@ -8,6 +8,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "jsx": "react",
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -17,6 +18,8 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
+    "resolveJsonModule": true,
+
     "typeRoots": [
       "node_modules/@types"
     ],

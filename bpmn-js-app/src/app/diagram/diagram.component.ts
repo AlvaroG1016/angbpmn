@@ -13,15 +13,38 @@ import {
 } from '@angular/core';
 
 
+
+import * as CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json';
+import  * as ZeebeBpmnModdle from 'zeebe-bpmn-moddle/resources/zeebe.json'
+import ExamplePropertiesProvider from '../../../ExamplePropertiesProvider';
+
 import {
   BpmnPropertiesPanelModule,
-  BpmnPropertiesProviderModule
-} from 'bpmn-js-properties-panel';
+  BpmnPropertiesProviderModule,
+  CamundaPlatformPropertiesProviderModule,
+  ZeebePropertiesProviderModule,
+  
+} from '../../../bpmn-js-properties-panel';
 import { HttpClient } from '@angular/common/http';
-import { map, switchMap } from 'rxjs/operators';
 
-import type Canvas from 'diagram-js/lib/core/Canvas';
-import type { ImportDoneEvent, ImportXMLResult } from 'bpmn-js';
+import type Canvas from '../../../diagram-js/lib/core/Canvas';
+import type { ImportDoneEvent, ImportXMLResult } from '../../../bpmn-js';
+
+import customTranslate from '../../../customTranslate/customTranslate';
+
+
+import {
+  CreateAppendAnythingModule, CreateAppendElementTemplatesModule
+} from 'bpmn-js-create-append-anything';
+
+import {
+  ZeebeVariableResolverModule
+} from '@bpmn-io/variable-resolver';
+/* import {CamundaBpmnModdle} from '../../../camunda-bpmn-moddle/resources';
+ */
+
+/* import colorPickerModule from 'bpmn-js-color-picker';
+
 
 /**
  * You may include a different variant of BpmnJS:
@@ -30,7 +53,23 @@ import type { ImportDoneEvent, ImportXMLResult } from 'bpmn-js';
  *                to navigate them
  * bpmn-modeler - bootstraps a full-fledged BPMN editor
  */
-import BpmnJS from 'bpmn-js/lib/Modeler';
+import BpmnJS from '../../../bpmn-js/lib/Modeler';
+import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
+
+import CamundaPropertiesProvider from '../../../provider/camunda-platform';
+
+
+import CamundaBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-platform';
+
+
+import {
+  ElementTemplatesPropertiesProviderModule, // Camunda 7 Element Templates
+   CloudElementTemplatesPropertiesProviderModule // Camunda 8 Element Templates
+} from 'bpmn-js-element-templates';
+
+import camundaCloudBehaviors from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
+
+
 
 /* import { from, Observable, Subscription } from 'rxjs';
  */
@@ -61,17 +100,11 @@ export class DiagramComponent implements AfterContentInit, OnChanges, OnDestroy,
   @Output() exportArtifactsEvent: EventEmitter<any> = new EventEmitter();
 
 
-  private bpmnJS: BpmnJS = new BpmnJS({
+   customTranslateModule = {
+    translate: [ 'value', customTranslate ]
+  };
 
-    container: '.diagram-parent',
-    propertiesPanel: {
-      parent: '#js-properties-panel'
-    },
-    additionalModules: [
-      BpmnPropertiesPanelModule,
-      BpmnPropertiesProviderModule
-    ]
-  });
+  private bpmnJS: BpmnJS = new BpmnJS();
 
 
   
@@ -86,20 +119,60 @@ export class DiagramComponent implements AfterContentInit, OnChanges, OnDestroy,
       }
     });
   }
-
+  
   ngAfterContentInit(): void {
     this.bpmnJS.attachTo(this.el.nativeElement);
     this.removePoweredByElement();
-
+    
   }
 
+
+ /*  ngOnInit(): void {
+    this.bpmnJS = new BpmnJS({
+      container: this.el.nativeElement,
+      propertiesPanel: {
+        parent: '#js-properties-panel',
+      },
+      additionalModules: [
+        BpmnPropertiesPanelModule,
+        BpmnPropertiesProviderModule,
+        CamundaBehaviorsModule,
+        CreateAppendAnythingModule,
+        CamundaPlatformPropertiesProviderModule ,
+        CloudElementTemplatesPropertiesProviderModule,
+        camundaCloudBehaviors
+
+      ],
+      
+      moddleExtensions: {
+        camunda: CamundaBpmnModdle,
+
+      }
+    });
+  }
+ */
+  
   ngOnInit(): void {
-    if (this.url) {
-      this.loadUrl(this.url);
+    this.bpmnJS = new BpmnJS({
+      container: this.el.nativeElement,
+      propertiesPanel: {
+        parent: '#js-properties-panel',
+      },
+      additionalModules: [
+        BpmnPropertiesPanelModule,
+        BpmnPropertiesProviderModule,
+        ZeebePropertiesProviderModule,
+        CreateAppendAnythingModule,
+        ZeebeVariableResolverModule,
+        ZeebeBehaviorsModule,
+        this.customTranslateModule
+      ],
 
-    }
+      moddleExtensions: {
+       zeebe: ZeebeBpmnModdle
 
-    
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
